@@ -7,7 +7,7 @@ phases:
   build:
     commands:
       - docker build -t php-base-image:latest .
-      - docker tag php-base-image:latest 323441517494.dkr.ecr.eu-west-2.amazonaws.com/planet-cargo-base-php:latest
+      - docker tag php-base-image:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/planet-cargo-base-php:latest
   post_build:
     commands:
-      - docker push 323441517494.dkr.ecr.eu-west-2.amazonaws.com/planet-cargo-base-php:latest
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/planet-cargo-base-php:latest
