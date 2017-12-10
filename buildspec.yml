@@ -6,8 +6,8 @@ phases:
       - $(aws ecr get-login)
   build:
     commands:
-      - docker build -t 323441517494.dkr.ecr.eu-west-2.amazonaws.com/planet-cargo-base-php --build-arg env=build .
-      - docker tag 323441517494.dkr.ecr.eu-west-2.amazonaws.com/planet-cargo-base-php:latest 323441517494.dkr.ecr.eu-west-2.amazonaws.com/planet-cargo-base-php:latest
+      - docker build -t php-base-image:latest .
+      - docker tag php-base-image:latest 323441517494.dkr.ecr.eu-west-2.amazonaws.com/planet-cargo-base-php:latest
   post_build:
     commands:
       - docker push 323441517494.dkr.ecr.eu-west-2.amazonaws.com/planet-cargo-base-php:latest
