@@ -1,15 +1,16 @@
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 
 # Setup the OS for PHP
 RUN docker-php-source extract \
     && apt-get update \
-    && apt-get install -y \
+    && apt-get install --no-install-recommends -y \
     libxml2-dev \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libmcrypt-dev \
     libpng-dev \
     libicu-dev \
+    && apt-get clean \
     && rm -rf /tmp/*
 
 # Setup PHP extensions
