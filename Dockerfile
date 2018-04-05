@@ -20,7 +20,7 @@ RUN docker-php-ext-configure opcache \
     && docker-php-ext-configure fileinfo \
     && docker-php-ext-configure gettext \
     && docker-php-ext-configure pdo \
-    && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
+    && docker-php-ext-configure pdo_pgsql \
     && docker-php-ext-configure json \
     && docker-php-ext-configure session \
     && docker-php-ext-configure ctype \
@@ -39,7 +39,7 @@ RUN docker-php-ext-configure opcache \
     fileinfo \
     gettext \
     pdo \
-    pdo_mysql \
+    pdo_pgsql \
     json \
     session \
     ctype \
