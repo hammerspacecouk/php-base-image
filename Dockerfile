@@ -10,6 +10,7 @@ RUN docker-php-source extract \
     libmcrypt-dev \
     libpng-dev \
     libicu-dev \
+    libpq-dev \
     && apt-get clean \
     && rm -rf /tmp/*
 
