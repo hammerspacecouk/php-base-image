@@ -1,20 +1,16 @@
-FROM php:7.2-fpm
+FROM php:7.2-fpm-alpine
 
 # Setup the OS for PHP
-RUN docker-php-source extract \
-    && apt-get update \
-    && apt-get install --no-install-recommends -y \
+RUN apk update --no-cache \
+    && apk add --no-cache --virtual .php-ext-deps \
     libxml2-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libmcrypt-dev \
+    freetype-dev \
+    libjpeg-turbo-dev \
     libpng-dev \
-    libicu-dev \
-    && apt-get clean \
-    && rm -rf /tmp/*
-
-# Setup PHP extensions
-RUN docker-php-ext-configure opcache \
+    icu-dev \
+    gettext-dev \
+    && docker-php-source extract \
+    && docker-php-ext-configure opcache \
     && docker-php-ext-configure calendar \
     && docker-php-ext-configure exif \
     && docker-php-ext-configure fileinfo \
@@ -31,7 +27,6 @@ RUN docker-php-ext-configure opcache \
     && docker-php-ext-configure zip \
     && docker-php-ext-configure xml \
     && docker-php-ext-configure intl \
-    && docker-php-source delete \\
     && docker-php-ext-install \
     opcache \
     calendar \
@@ -49,7 +44,9 @@ RUN docker-php-ext-configure opcache \
     mbstring \
     zip \
     xml \
-    intl
+    intl \
+    && docker-php-source delete \
+    && apk del .php-ext-deps
 
 # Get composer
 RUN curl -sS https://getcomposer.org/installer | php \
