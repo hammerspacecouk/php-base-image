@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM php:fpm-alpine
 
 # Setup the OS for PHP
 RUN apk update --no-cache \
@@ -9,6 +9,7 @@ RUN apk update --no-cache \
     libpng-dev \
     icu-dev \
     gettext-dev \
+    libzip-dev \
     && docker-php-source extract \
     && docker-php-ext-configure opcache \
     && docker-php-ext-configure calendar \
