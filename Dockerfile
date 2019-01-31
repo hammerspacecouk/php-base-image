@@ -7,15 +7,15 @@ RUN apk update --no-cache \
     freetype-dev \
     libjpeg-turbo-dev \
     libpng-dev \
-    icu-dev \
-    gettext-dev \
-    libzip-dev \
+    icu icu-dev \
+    php7-intl \
+    zip libzip libzip-dev zlib-dev unzip \
     && docker-php-source extract \
     && docker-php-ext-configure opcache \
     && docker-php-ext-configure calendar \
     && docker-php-ext-configure exif \
     && docker-php-ext-configure fileinfo \
-    && docker-php-ext-configure gettext \
+    && docker-php-ext-configure intl --enable-intl \
     && docker-php-ext-configure pdo \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
     && docker-php-ext-configure json \
@@ -25,15 +25,14 @@ RUN apk update --no-cache \
     && docker-php-ext-configure simplexml \
     && docker-php-ext-configure dom \
     && docker-php-ext-configure mbstring \
-    && docker-php-ext-configure zip \
+    && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-configure xml \
-    && docker-php-ext-configure intl \
     && docker-php-ext-install \
     opcache \
+    intl \
     calendar \
     exif \
     fileinfo \
-    gettext \
     pdo \
     pdo_mysql \
     json \
@@ -45,9 +44,10 @@ RUN apk update --no-cache \
     mbstring \
     zip \
     xml \
-    intl \
     && docker-php-source delete \
-    && apk del .php-ext-deps
+    && apk del .php-ext-deps \
+    zlib-dev \
+    icu-dev
 
 # Get composer
 RUN curl -sS https://getcomposer.org/installer | php \
