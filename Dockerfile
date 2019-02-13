@@ -2,13 +2,12 @@ FROM php:fpm-alpine
 
 # Setup the OS for PHP
 RUN apk update --no-cache \
-    && apk add --no-cache --virtual .php-ext-deps \
+    && apk add --update --no-cache \
     libxml2-dev \
     freetype-dev \
     libjpeg-turbo-dev \
     libpng-dev \
-    icu icu-dev \
-    php7-intl \
+    php7-intl icu-dev \
     zip libzip libzip-dev zlib-dev unzip \
     && docker-php-source extract \
     && docker-php-ext-configure opcache \
@@ -25,7 +24,7 @@ RUN apk update --no-cache \
     && docker-php-ext-configure simplexml \
     && docker-php-ext-configure dom \
     && docker-php-ext-configure mbstring \
-    && docker-php-ext-configure zip --with-libzip \
+    && docker-php-ext-configure zip \
     && docker-php-ext-configure xml \
     && docker-php-ext-install \
     opcache \
@@ -44,10 +43,8 @@ RUN apk update --no-cache \
     mbstring \
     zip \
     xml \
-    && docker-php-source delete \
-    && apk del .php-ext-deps \
-    zlib-dev \
-    icu-dev
+    && docker-php-ext-enable zip \
+    && docker-php-source delete
 
 # Get composer
 RUN curl -sS https://getcomposer.org/installer | php \
