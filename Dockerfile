@@ -1,5 +1,8 @@
 FROM php:fpm-alpine
 
+# Get composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
 # Setup the OS for PHP
 RUN apk update --no-cache \
     && apk add --update --no-cache \
@@ -45,7 +48,3 @@ RUN apk update --no-cache \
     xml \
     && docker-php-ext-enable zip \
     && docker-php-source delete
-
-# Get composer
-RUN curl -sS https://getcomposer.org/installer | php \
-    && mv composer.phar /usr/local/bin/composer \
