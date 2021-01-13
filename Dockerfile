@@ -10,7 +10,7 @@ RUN apk update --no-cache \
     freetype-dev \
     libjpeg-turbo-dev \
     libpng-dev \
-    php7-intl icu-dev \
+    icu-dev \
     zip libzip libzip-dev zlib-dev unzip \
     && docker-php-source extract \
     && docker-php-ext-configure opcache \
@@ -20,7 +20,6 @@ RUN apk update --no-cache \
     && docker-php-ext-configure intl --enable-intl \
     && docker-php-ext-configure pdo \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
-    && docker-php-ext-configure json \
     && docker-php-ext-configure session \
     && docker-php-ext-configure ctype \
     && docker-php-ext-configure tokenizer \
@@ -36,7 +35,6 @@ RUN apk update --no-cache \
     fileinfo \
     pdo \
     pdo_mysql \
-    json \
     session \
     ctype \
     tokenizer \
